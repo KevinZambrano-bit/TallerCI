@@ -5,21 +5,27 @@ on:
     branches: [ main ]
 
 jobs:
-  verificar codigo:
+
+  verificar_codigo:
 
     runs-on: ubuntu-latest
 
     steps:
-     - name: checkout del repositorio
-       uses: actions/checkout@v4
+      - name: checkout del repositorio
+        uses: actions/checkout@v4
 
-     - name: mostrar archivos(opcional)
-       run: ls -R
+      - name: mostrar archivos(opcional)
+        run: ls -R
 
-desplegar_pagina:
-    needs: verificar_codigo # Depende de que el job de verificación termine con éxito
-    if: github.ref == 'refs/heads/main' # Solo despliega si es la rama 'main'
+
+  desplegar_pagina:
+
+    needs: verificar_codigo
+
+    if: github.ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
